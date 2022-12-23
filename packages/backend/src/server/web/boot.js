@@ -176,33 +176,13 @@
 		<code>${JSON.stringify(details)}</code>`;
 		errorsElement.appendChild(detailsElement);
 		addStyle(`
-		@font-face {
-			font-family: 'Pretendard JP';
-			font-weight: 400;
-			font-display: swap;
-			src: local('Pretendard JP Regular'),
-			url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/packages/pretendard-jp/dist/web/static/woff2/PretendardJP-Regular.woff2') format('woff2'),
-			url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/packages/pretendard-jp/dist/web/static/woff/PretendardJP-Regular.woff') format('woff');
-		}
-		@font-face {
-			font-family: 'Pretendard JP';
-			font-weight: 700;
-			font-display: swap;
-			src: local('Pretendard JP Bold'),
-			url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/packages/pretendard-jp/dist/web/static/woff2/PretendardJP-Bold.woff2') format('woff2'),
-			url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/packages/pretendard-jp/dist/web/static/woff/PretendardJP-Bold.woff') format('woff');
-		}
-		@font-face {
-			font-family: 'JetBrains Mono';
-			font-style: normal;
-			font-weight: 400;
-			src: local("JetBrains Mono Regular"), local("JetBrainsMono-Regular"),
-			url("https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@master/fonts/webfonts/JetBrainsMono-Regular.woff2") format("woff2");
-			font-display: swap; }
-		}
+		@import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/variable.css");
+		@import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/variable-italic.css");
+		@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/PretendardVariable-VF.css");
+		@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/PretendardJPVariable-VF.css");
 
 		* {
-			font-family: "Pretendard JP", BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
+			font-family: "Pretendard JP Variable", "Pretendard JP", "Pretendard Variable", Pretendard, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
 		}
 
 		#misskey_app,
@@ -285,7 +265,7 @@
 		}
 
 		code {
-			font-family: "JetBrains Mono", Fira, FiraCode, monospace;
+			font-family: "JetBrains MonoVariable", "JetBrains Mono", "Pretendard JP Variable", "Pretendard JP", "Pretendard Variable", Pretendard, Fira, FiraCode, monospace;
 		}
 
 		details {
