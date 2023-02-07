@@ -70,9 +70,10 @@ async function accept(): Promise<void> {
 
 	state = 'accepted';
 	if (props.callback) {
-		location.href = appendQuery(props.callback, query({
-			session: props.session,
-		}));
+		const cbUrl = new URL(props.callback);
+		if (!['http:', 'https:'].includes(cbUrl.protocol)) throw new Error('invalid url');
+		cbUrl.searchParams.set('session', props.session);
+		location.href = cbUrl.href;
 	}
 }
 
