@@ -24,7 +24,7 @@ import * as Acct from '@/misc/acct.js';
 import { getNoteSummary } from '@/misc/get-note-summary.js';
 import { queues } from '@/queue/queues.js';
 import { genOpenapiSpec } from '../api/openapi/gen-spec.js';
-import { urlPreviewHandler } from './url-preview.js';
+import { urlPreviewHandler } from './UrlPreviewService.js';
 import { manifestHandler } from './manifest.js';
 import packFeed from './feed.js';
 
