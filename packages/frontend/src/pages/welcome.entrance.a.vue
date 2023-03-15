@@ -121,7 +121,7 @@ function showMenu(ev) {
 
 function exploreOtherServers() {
 	// TODO: 言語をよしなに
-	window.open('https://join.misskey.page/ja-JP/instances', '_blank');
+	window.open('https://lapy.notion.site/6ef03fdabfae40209a5b517d2dcc00ba', '_blank');
 }
 </script>
 
