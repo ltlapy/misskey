@@ -118,6 +118,14 @@ export const meta = {
 					optional: false, nullable: false,
 				},
 			},
+			sensitiveWords: {
+				type: 'array',
+				optional: true, nullable: false,
+				items: {
+					type: 'string',
+					optional: false, nullable: false,
+				},
+			},
 			hcaptchaSecretKey: {
 				type: 'string',
 				optional: true, nullable: true,
@@ -239,6 +247,14 @@ export const meta = {
 				type: 'boolean',
 				optional: true, nullable: false,
 			},
+			enableChartsForRemoteUser: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
+			enableChartsForFederatedInstances: {
+				type: 'boolean',
+				optional: false, nullable: false,
+			},
 			policies: {
 				type: 'object',
 				optional: false, nullable: false,
@@ -274,7 +290,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				uri: this.config.url,
 				description: instance.description,
 				langs: instance.langs,
-				tosUrl: instance.ToSUrl,
+				tosUrl: instance.termsOfServiceUrl,
 				repositoryUrl: instance.repositoryUrl,
 				feedbackUrl: instance.feedbackUrl,
 				disableRegistration: instance.disableRegistration,
@@ -300,13 +316,13 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				// translatorAvailable: instance.deeplAuthKey != null,
 				translatorAvailable: instance.translatorType != null,
 				translatorType: instance.translatorType,
-				pinnedPages: instance.pinnedPages,
-				pinnedClipId: instance.pinnedClipId,
+				// pinnedPages: instance.pinnedPages,
+				// pinnedClipId: instance.pinnedClipId,
 				cacheRemoteFiles: instance.cacheRemoteFiles,
-				useStarForReactionFallback: instance.useStarForReactionFallback,
 				pinnedUsers: instance.pinnedUsers,
 				hiddenTags: instance.hiddenTags,
 				blockedHosts: instance.blockedHosts,
+				sensitiveWords: instance.sensitiveWords,
 				hcaptchaSecretKey: instance.hcaptchaSecretKey,
 				recaptchaSecretKey: instance.recaptchaSecretKey,
 				turnstileSecretKey: instance.turnstileSecretKey,
@@ -340,6 +356,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				deeplIsPro: instance.deeplIsPro,
 				enableIpLogging: instance.enableIpLogging,
 				enableActiveEmailValidation: instance.enableActiveEmailValidation,
+				enableChartsForRemoteUser: instance.enableChartsForRemoteUser,
+				enableChartsForFederatedInstances: instance.enableChartsForFederatedInstances,
 				policies: { ...DEFAULT_POLICIES, ...instance.policies },
 			};
 		});

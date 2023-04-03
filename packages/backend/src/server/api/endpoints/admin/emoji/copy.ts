@@ -87,8 +87,13 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				category: null,
 				host: null,
 				aliases: [],
-				driveFile,
-			});
+				originalUrl: driveFile.url,
+				publicUrl: driveFile.webpublicUrl ?? driveFile.url,
+				type: driveFile.webpublicType ?? driveFile.type,
+				license: emoji.license,
+			}).then(x => this.emojisRepository.findOneByOrFail(x.identifiers[0]));
+
+			await this.db.queryResultCache?.remove(['meta_emojis']);
 
 			this.moderationLogService.insertModerationLog(me, 'copyEmoji', {
 				emojiId: emoji.id,

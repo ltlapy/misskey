@@ -10,7 +10,6 @@ import type {
 	AdminStreamTypes,
 	AntennaStreamTypes,
 	BroadcastTypes,
-	ChannelStreamTypes,
 	DriveStreamTypes,
 	GroupMessagingStreamTypes,
 	InternalStreamTypes,
@@ -21,7 +20,7 @@ import type {
 	UserListStreamTypes,
 	UserStreamTypes,
 } from '@/server/api/stream/types.js';
-import type { Packed } from '@/misc/schema.js';
+import type { Packed } from '@/misc/json-schema.js';
 import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
 import { bindThis } from '@/decorators.js';
@@ -80,11 +79,6 @@ export class GlobalEventService {
 			id: noteId,
 			body: value,
 		});
-	}
-
-	@bindThis
-	public publishChannelStream<K extends keyof ChannelStreamTypes>(channelId: Channel['id'], type: K, value?: ChannelStreamTypes[K]): void {
-		this.publish(`channelStream:${channelId}`, type, typeof value === 'undefined' ? null : value);
 	}
 
 	@bindThis
