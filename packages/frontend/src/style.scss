@@ -84,6 +84,18 @@ html {
 		font-size: 17px;
 	}
 
+	&.f-4 {
+		font-size: 18px;
+	}
+
+	&.f-5 {
+		font-size: 19px;
+	}
+
+	&.f-6 {
+		font-size: 20px;
+	}
+
 	&.useSystemFont {
 		font-family: $system-font;
 	}

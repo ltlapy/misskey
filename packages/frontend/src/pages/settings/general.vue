@@ -78,6 +78,9 @@
 				<option value="1"><span style="font-size: 15px;">Aa</span></option>
 				<option value="2"><span style="font-size: 16px;">Aa</span></option>
 				<option value="3"><span style="font-size: 17px;">Aa</span></option>
+				<option value="4"><span style="font-size: 18px;">Aa</span></option>
+				<option value="5"><span style="font-size: 19px;">Aa</span></option>
+				<option value="6"><span style="font-size: 20px;">Aa</span></option>
 			</MkRadios>
 		</div>
 	</FormSection>
