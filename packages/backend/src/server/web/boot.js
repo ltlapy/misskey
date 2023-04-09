@@ -210,8 +210,8 @@
 
 		body,
 		html {
-			background-color: #222;
-			color: #dfddcc;
+			background-color: rgb(27, 26, 37);
+			color: rgb(242, 238, 252);
 			justify-content: center;
 			margin: auto;
 			padding: 10px;
@@ -227,32 +227,32 @@
 		}
 
 		.button-big {
-			background: linear-gradient(90deg, rgb(134, 179, 0), rgb(74, 179, 0));
+			background: linear-gradient(90deg, rgb(184, 185, 247), rgb(204, 184, 247));
 			line-height: 50px;
 		}
 
 		.button-big:hover {
-			background: rgb(153, 204, 0);
+			background: rgb(230, 230, 252);
 		}
 
 		.button-small {
-			background: #444;
+			background: rgb(35, 35, 47);
 			line-height: 40px;
 		}
 
 		.button-small:hover {
-			background: #555;
+			background: rgba(184, 185, 247, 0.15);
 		}
 
 		.button-label-big {
-			color: #222;
+			color: rgb(33, 32, 41);
 			font-weight: bold;
 			font-size: 20px;
 			padding: 12px;
 		}
 
 		.button-label-small {
-			color: rgb(153, 204, 0);
+			color: rgba(184, 185, 247);
 			font-size: 16px;
 			padding: 12px;
 		}
@@ -283,11 +283,13 @@
 		}
 
 		code {
+			color: #f8f8f2;
+			text-shadow: 0 1px rgba(0,0,0,.3);
 			font-family: Fira, FiraCode, monospace;
 		}
 
 		details {
-			background: #333;
+			background: #272822;
 			margin-bottom: 2rem;
 			padding: 0.5rem 1rem;
 			width: 40rem;

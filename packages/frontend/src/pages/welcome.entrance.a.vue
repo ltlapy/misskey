@@ -6,9 +6,9 @@
 	<div class="shape2"></div>
 	<img src="/client-assets/misskey.svg" class="misskey"/>
 	<div class="emojis">
-		<MkEmoji :normal="true" :no-style="true" emoji="👍"/>
+		<MkEmoji :normal="true" :no-style="true" emoji="🍮"/>
 		<MkEmoji :normal="true" :no-style="true" emoji="❤"/>
-		<MkEmoji :normal="true" :no-style="true" emoji="😆"/>
+		<MkEmoji :normal="true" :no-style="true" emoji="🍮"/>
 		<MkEmoji :normal="true" :no-style="true" emoji="🎉"/>
 		<MkEmoji :normal="true" :no-style="true" emoji="🍮"/>
 	</div>
@@ -214,7 +214,7 @@ function exploreOtherServers() {
 			border-radius: var(--radius);
 			box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
 			text-align: center;
-		
+
 			> .icon {
 				width: 85px;
 				margin-top: -47px;
