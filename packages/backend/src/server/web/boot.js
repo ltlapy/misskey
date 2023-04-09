@@ -199,8 +199,13 @@
 		<code>${JSON.stringify(details)}</code>`;
 		errorsElement.appendChild(detailsElement);
 		addStyle(`
+		@import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/variable.css");
+		@import url("https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/variable-italic.css");
+		@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/PretendardVariable-VF.css");
+		@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/PretendardJPVariable-VF.css");
+
 		* {
-			font-family: BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
+			font-family: "Pretendard JP Variable", "Pretendard JP", "Pretendard Variable", Pretendard, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
 		}
 
 		#misskey_app,
@@ -285,7 +290,7 @@
 		code {
 			color: #f8f8f2;
 			text-shadow: 0 1px rgba(0,0,0,.3);
-			font-family: Fira, FiraCode, monospace;
+			font-family: "JetBrains MonoVariable", "JetBrains Mono", "Pretendard JP Variable", "Pretendard JP", "Pretendard Variable", Pretendard, Fira, FiraCode, monospace;
 		}
 
 		details {
