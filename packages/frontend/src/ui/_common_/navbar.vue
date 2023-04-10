@@ -159,6 +159,7 @@ function more(ev: MouseEvent) {
 						display: inline-block;
 						width: 38px;
 						aspect-ratio: 1;
+						border-radius: 100%;
 					}
 				}
 			}
@@ -338,6 +339,7 @@ function more(ev: MouseEvent) {
 						display: inline-block;
 						width: 30px;
 						aspect-ratio: 1;
+						border-radius: 100%;
 					}
 				}
 			}

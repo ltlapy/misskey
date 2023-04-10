@@ -175,6 +175,7 @@ watch(defaultStore.reactiveState.menuDisplay, () => {
 			img {
 				display: block;
 				width: 100%;
+				border-radius: 100%;
 			}
 		}
 	}
