@@ -243,7 +243,7 @@ function onDrop(ev) {
 <style lang="scss" module>
 .root {
 	--root-margin: 10px;
-	--deckColumnHeaderHeight: 40px;
+	--deckColumnHeaderHeight: 38px;
 
 	height: 100%;
 	overflow: clip;
@@ -316,6 +316,7 @@ function onDrop(ev) {
 	font-size: 0.9em;
 	color: var(--panelHeaderFg);
 	background: var(--panelHeaderBg);
+	box-shadow: 0 1px 0 0 var(--panelHeaderDivider);
 	cursor: pointer;
 	user-select: none;
 }
