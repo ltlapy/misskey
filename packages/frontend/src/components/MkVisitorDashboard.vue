@@ -139,6 +139,7 @@ function exploreOtherServers() {
 	margin-top: -47px;
 	vertical-align: bottom;
 	filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+	border-radius: 100%;
 }
 
 .mainMenu {
