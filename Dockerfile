@@ -31,10 +31,8 @@ RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked \
 COPY --link . ./
 
 ARG NODE_ENV=production
-ARG VERHASH_NYA=0w0
 
 RUN git submodule update --init
-RUN node verhash.mjs
 RUN pnpm build
 RUN rm -rf .git/
 
