@@ -1,10 +1,16 @@
 {
 	"name": "misskey",
 	"version": "13.13.0-beta.3",
+	"prefix": "cs",
 	"codename": "nasubi",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/misskey-dev/misskey.git"
+	},
+	"sourceCode": {
+		"url": "https://github.com/libnare/mk-castella",
+		"viewPath": "/tree/",
+		"commitHash": true
 	},
 	"packageManager": "pnpm@8.5.1",
 	"workspaces": [
