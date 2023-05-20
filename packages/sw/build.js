@@ -2,7 +2,7 @@
 
 const esbuild = require('esbuild');
 const locales = require('../../locales');
-const meta = require('../../package.json');
+const meta = require('../../built/meta.json');
 const watch = process.argv[2]?.includes('watch');
 
 console.log('Starting SW building...');

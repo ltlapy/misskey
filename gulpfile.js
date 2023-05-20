@@ -9,7 +9,7 @@ const terser = require('gulp-terser');
 const cssnano = require('gulp-cssnano');
 
 const locales = require('./locales');
-const meta = require('./package.json');
+const meta = require('./built/meta.json');
 
 gulp.task('copy:backend:views', () =>
 	gulp.src('./packages/backend/src/server/web/views/**/*').pipe(gulp.dest('./packages/backend/built/server/web/views'))

@@ -6,7 +6,7 @@ import { type UserConfig, defineConfig } from 'vite';
 import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
 
 import locales from '../../locales';
-import meta from '../../package.json';
+import meta from '../../built/meta.json';
 import pluginJson5 from './vite.json5';
 
 const extensions = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.json', '.json5', '.svg', '.sass', '.scss', '.css', '.vue'];
@@ -92,6 +92,8 @@ export function getConfig(): UserConfig {
 
 		define: {
 			_VERSION_: JSON.stringify(meta.version),
+			_COMMIT_: JSON.stringify(meta.commit),
+			_SOURCE_CODE_: JSON.stringify(meta.sourceCode),
 			_LANGS_: JSON.stringify(Object.entries(locales).map(([k, v]) => [k, v._lang_])),
 			_ENV_: JSON.stringify(process.env.NODE_ENV),
 			_DEV_: process.env.NODE_ENV !== 'production',
