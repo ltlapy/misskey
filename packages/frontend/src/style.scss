@@ -31,11 +31,7 @@ $monospace-font: "JetBrains MonoVariable", "JetBrains Mono", "Pretendard JP Vari
 } 
 
 html {
-	touch-action: manipulation;
 	background-color: var(--bg);
-	background-attachment: fixed;
-	background-size: cover;
-	background-position: center;
 	color: var(--fg);
 	accent-color: var(--accent);
 	overflow: auto;
@@ -47,7 +43,7 @@ html {
 	tab-size: 2;
 
 	&, * {
-		scrollbar-color: var(--scrollbarHandle) inherit;
+		scrollbar-color: var(--scrollbarHandle) transparent;
 		scrollbar-width: thin;
 
 		&::-webkit-scrollbar {
@@ -108,6 +104,7 @@ html._themeChanging_ {
 }
 
 html, body {
+	touch-action: manipulation;
 	margin: 0;
 	padding: 0;
 	scroll-behavior: smooth;
