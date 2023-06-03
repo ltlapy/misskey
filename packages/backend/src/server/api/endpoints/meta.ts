@@ -306,7 +306,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				enableEmail: instance.enableEmail,
 				enableServiceWorker: instance.enableServiceWorker,
 				
-				// translatorAvailable: instance.deeplAuthKey != null,
 				translatorAvailable: instance.translatorType != null,
 
 				serverRules: instance.serverRules,
