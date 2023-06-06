@@ -32,7 +32,8 @@
 			<div v-if="image.comment" :class="$style.indicator">ALT</div>
 			<div v-if="image.isSensitive" :class="$style.indicator" style="color: var(--warn);">NSFW</div>
 		</div>
-		<button :class="$style.menu" class="_button" @click.stop="showMenu"><i class="ti ti-dots" style="vertical-align: middle;"></i></button>
+		<button v-tooltip="i18n.ts.hide" :class="$style.hide" class="_button" @click.stop.prevent="hide = true"><i class="ti ti-eye-off"></i></button>
+		<button :class="$style.menu" class="_button" @click.stop="showMenu"><i class="ti ti-dots"></i></button>
 	</template>
 </div>
 </template>
@@ -128,6 +129,21 @@ function showMenu(ev: MouseEvent) {
 	background-size: 16px 16px;
 }
 
+.hide {
+	display: block;
+	position: absolute;
+	border-radius: 6px;
+	background-color: var(--accentedBg);
+	-webkit-backdrop-filter: var(--blur, blur(15px));
+	backdrop-filter: var(--blur, blur(15px));
+	color: var(--accent);
+	font-size: 0.8em;
+	padding: 6px 8px;
+	text-align: center;
+	top: 12px;
+	right: 12px;
+}
+
 .menu {
 	display: block;
 	position: absolute;
@@ -160,8 +176,10 @@ function showMenu(ev: MouseEvent) {
 	position: absolute;
 	top: 10px;
 	left: 10px;
+	text-align: center;
 	pointer-events: none;
 	opacity: .5;
+	/* font-size: 14px; */
 	gap: 6px;
 }
 
