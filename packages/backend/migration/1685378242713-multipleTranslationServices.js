@@ -2,7 +2,7 @@ export class MultipleTranslationServices1685378242713 {
     name = 'MultipleTranslationServices1685378242713'
 
     async up(queryRunner) {
-      await queryRunner.query(`ALTER TABLE "meta" ADD "translatorType" character varying(32)`);
+      // await queryRunner.query(`ALTER TABLE "meta" ADD "translatorType" character varying(32)`);
       await queryRunner.query(`ALTER TABLE "meta" ADD "ctav3SaKey" character varying(5120)`);
       await queryRunner.query(`ALTER TABLE "meta" ADD "ctav3ProjectId" character varying(1024)`);
       await queryRunner.query(`ALTER TABLE "meta" ADD "ctav3Location" character varying(1024)`);
@@ -11,7 +11,7 @@ export class MultipleTranslationServices1685378242713 {
     }
 
     async down(queryRunner) {
-      await queryRunner.query(`ALTER TABLE "meta" DROP COLUMN "translatorType"`);
+      // await queryRunner.query(`ALTER TABLE "meta" DROP COLUMN "translatorType"`);
       await queryRunner.query(`ALTER TABLE "meta" DROP COLUMN "ctav3SaKey"`);
       await queryRunner.query(`ALTER TABLE "meta" DROP COLUMN "ctav3ProjectId"`);
       await queryRunner.query(`ALTER TABLE "meta" DROP COLUMN "ctav3Location"`);

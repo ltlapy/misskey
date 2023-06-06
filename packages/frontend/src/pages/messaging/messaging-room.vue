@@ -5,11 +5,11 @@
 </template>
 <div
 	ref="rootEl"
-	:class="$style['root']"
+	:class="$style.root"
 	@dragover.prevent.stop="onDragover"
 	@drop.prevent.stop="onDrop"
 >
-	<div :class="$style['body']">
+	<div :class="$style.body">
 		<MkPagination v-if="pagination" ref="pagingComponent" :key="userAcct || groupId" :pagination="pagination">
 			<template #empty>
 				<div class="_fullinfo">
@@ -21,7 +21,7 @@
 				<MkDateSeparatedList
 					v-if="messages.length > 0"
 					v-slot="{ item: message }"
-					:class="{ [$style['messages']]: true, 'deny-move-transition': pFetching }"
+					:class="{ [$style.messages]: true, 'deny-move-transition': pFetching }"
 					:items="messages"
 					direction="up"
 					reversed
@@ -31,23 +31,23 @@
 			</template>
 		</MkPagination>
 	</div>
-	<footer :class="$style['footer']">
-		<div v-if="typers.length > 0" :class="$style['typers']">
+	<footer :class="$style.footer">
+		<div v-if="typers.length > 0" :class="$style.typers">
 			<I18n :src="i18n.ts.typingUsers" text-tag="span">
 				<template #users>
-					<b v-for="typer in typers" :key="typer.id" :class="$style['user']">{{ typer.username }}</b>
+					<b v-for="typer in typers" :key="typer.id" :class="$style.user">{{ typer.username }}</b>
 				</template>
 			</I18n>
 			<MkEllipsis/>
 		</div>
 		<Transition :name="animation ? 'fade' : ''">
-			<div v-show="showIndicator" :class="$style['new-message']">
-				<button class="_buttonPrimary" @click="onIndicatorClick" :class="$style['new-message-button']">
-					<i class="fas ti-fw fa-arrow-circle-down" :class="$style['new-message-icon']"></i>{{ i18n.ts.newMessageExists }}
+			<div v-show="showIndicator" :class="$style.new-message">
+				<button class="_buttonPrimary" @click="onIndicatorClick" :class="$style.new-message-button">
+					<i class="fas ti-fw fa-arrow-circle-down" :class="$style.new-message-icon"></i>{{ i18n.ts.newMessageExists }}
 				</button>
 			</div>
 		</Transition>
-		<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" :class="$style['form']"/>
+		<XForm v-if="!fetching" ref="formEl" :user="user" :group="group" :class="$style.form"/>
 	</footer>
 </div>
 </MkStickyContainer>
