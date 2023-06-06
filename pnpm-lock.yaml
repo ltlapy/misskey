@@ -640,9 +640,6 @@ importers:
       '@discordapp/twemoji':
         specifier: 14.1.2
         version: 14.1.2
-      '@fontsource/jetbrains-mono':
-        specifier: ^4.5.12
-        version: 4.5.12
       '@rollup/plugin-alias':
         specifier: 5.0.0
         version: 5.0.0(rollup@3.23.0)
@@ -751,12 +748,6 @@ importers:
       photoswipe:
         specifier: 5.3.7
         version: 5.3.7
-      pretendard:
-        specifier: ^1.3.6
-        version: 1.3.6
-      pretendard-jp:
-        specifier: ^1.3.6
-        version: 1.3.6
       prismjs:
         specifier: 1.29.0
         version: 1.29.0
@@ -4922,10 +4913,6 @@ packages:
     dependencies:
       fastify-plugin: 4.5.0
       hashlru: 2.3.0
-    dev: false
-
-  /@fontsource/jetbrains-mono@4.5.12:
-    resolution: {integrity: sha512-LJF1ala1/u+wXZmESFqIk08FA9yGX4/uAAleCHmXUMgEjvNAYFHUQQ7eK5hQQoBOwh99cU5suTrqYqEkgzwzPA==}
     dev: false
 
   /@gar/promisify@1.1.3:
@@ -18170,14 +18157,6 @@ packages:
   /prepend-http@1.0.4:
     resolution: {integrity: sha512-PhmXi5XmoyKw1Un4E+opM2KcsJInDvKyuOumcjjw3waw86ZNjHwVUOOWLc4bCzLdcKNaWBH9e99sbWzDQsVaYg==}
     engines: {node: '>=0.10.0'}
-    dev: false
-
-  /pretendard-jp@1.3.6:
-    resolution: {integrity: sha512-5UnEJMBaj7liqqRlfSr311EWE22eh4qMSHHdJZw6N1JB/Ywz+qRNOetuf6vFY9lw7wCmhJQwXi3IYCgo5pIv+g==}
-    dev: false
-
-  /pretendard@1.3.6:
-    resolution: {integrity: sha512-JdImekU/moL3Qr+QqvFmZobYkwYQPA/8PoZ0ptOKNju+laE1xG9SxuxfpYLowfUeOcY+glQB6uINJsD5WAHFDw==}
     dev: false
 
   /prettier@2.8.8:
