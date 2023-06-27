@@ -5,17 +5,17 @@
 		<transition :name="defaultStore.state.animation ? 'zoom' : ''" mode="out-in">
 			<div v-if="group && $i.id === group.ownerId" class="_section actions">
 				<div class="_content" style="">
-					<MkButton inline @click="invite()">{{ $ts.invite }}</MkButton>
-					<MkButton inline @click="renameGroup()">{{ $ts.rename }}</MkButton>
-					<MkButton inline @click="transfer()">{{ $ts.transfer }}</MkButton>
-					<MkButton inline danger @click="deleteGroup()">{{ $ts.delete }}</MkButton>
+					<MkButton inline @click="invite()">{{ i18n.ts.invite }}</MkButton>
+					<MkButton inline @click="renameGroup()">{{ i18n.ts.rename }}</MkButton>
+					<MkButton inline @click="transfer()">{{ i18n.ts.transfer }}</MkButton>
+					<MkButton inline danger @click="deleteGroup()">{{ i18n.ts.delete }}</MkButton>
 				</div>
 			</div>
 		</transition>
 
 		<transition :name="defaultStore.state.animation ? 'zoom' : ''" mode="out-in">
 			<div v-if="group" class="_section members _gap">
-				<div class="_title">{{ $ts.members }}</div>
+				<div class="_title">{{ i18n.ts.members }}</div>
 				<div class="_content">
 					<div class="users">
 						<div v-for="user in users" :key="user.id" class="user _panel">
@@ -24,9 +24,9 @@
 								<MkUserName :user="user" class="name"/>
 								<MkAcct :user="user" class="acct"/>
 							</div>
-							<div v-if="user.id === group.ownerId" :title="$ts.leader" style="color: var(--badge);"><i class="ti ti-crown"></i></div>
+							<div v-if="user.id === group.ownerId" :title="i18n.ts.leader" style="color: var(--badge);"><i class="ti ti-crown"></i></div>
 							<div v-else-if="group && $i.id === group.ownerId" class="action">
-								<button class="_button" :title="$ts.banish" @click="removeUser(user)"><i class="ti ti-x"></i></button>
+								<button class="_button" :title="i18n.ts.banish" @click="removeUser(user)"><i class="ti ti-x"></i></button>
 							</div>
 						</div>
 					</div>
@@ -42,6 +42,7 @@ import { computed, watch } from 'vue';
 import MkButton from '@/components/MkButton.vue';
 import * as os from '@/os';
 import { mainRouter } from '@/router';
+import { $i } from '@/account';
 import { definePageMetadata } from '@/scripts/page-metadata';
 import { i18n } from '@/i18n';
 import { defaultStore } from '@/store';
