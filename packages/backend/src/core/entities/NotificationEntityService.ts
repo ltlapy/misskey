@@ -63,7 +63,7 @@ export class NotificationEntityService implements OnModuleInit {
 		meId: User['id'],
 		// eslint-disable-next-line @typescript-eslint/ban-types
 		options: {
-			
+
 		},
 		hint?: {
 			packedNotes: Map<Note['id'], Packed<'Note'>>;
