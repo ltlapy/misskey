@@ -44,9 +44,9 @@ import * as os from '@/os';
 import { onScrollTop, isTopVisible, getBodyScrollHeight, getScrollContainer, onScrollBottom, scrollToBottom, scroll, isBottomVisible } from '@/scripts/scroll';
 import { useDocumentVisibility } from '@/scripts/use-document-visibility';
 import MkButton from '@/components/MkButton.vue';
+import { defaultStore } from '@/store';
 import { MisskeyEntity } from '@/types/date-separated-list';
 import { i18n } from '@/i18n';
-import { defaultStore } from '@/store';
 
 const SECOND_FETCH_LIMIT = 30;
 const TOLERANCE = 16;
@@ -194,7 +194,7 @@ async function init(): Promise<void> {
 	const params = props.pagination.params ? isRef(props.pagination.params) ? props.pagination.params.value : props.pagination.params : {};
 	await os.api(props.pagination.endpoint, {
 		...params,
-		limit: props.pagination.noPaging ? (props.pagination.limit || 10) : (props.pagination.limit || 10) + 1,
+		limit: props.pagination.limit ?? 10,
 	}).then(res => {
 		for (let i = 0; i < res.length; i++) {
 			const item = res[i];
@@ -229,7 +229,7 @@ const fetchMore = async (): Promise<void> => {
 	const params = props.pagination.params ? isRef(props.pagination.params) ? props.pagination.params.value : props.pagination.params : {};
 	await os.api(props.pagination.endpoint, {
 		...params,
-		limit: SECOND_FETCH_LIMIT + 1,
+		limit: SECOND_FETCH_LIMIT,
 		...(props.pagination.offsetMode ? {
 			offset: offset.value,
 		} : {
@@ -258,12 +258,10 @@ const fetchMore = async (): Promise<void> => {
 			});
 		};
 
-		if (res.length > SECOND_FETCH_LIMIT) {
-			res.pop();
-
+		if (res.length === 0) {
 			if (props.pagination.reversed) {
 				reverseConcat(res).then(() => {
-					more.value = true;
+					more.value = false;
 					moreFetching.value = false;
 				});
 			} else {
@@ -274,7 +272,7 @@ const fetchMore = async (): Promise<void> => {
 		} else {
 			if (props.pagination.reversed) {
 				reverseConcat(res).then(() => {
-					more.value = false;
+					more.value = true;
 					moreFetching.value = false;
 				});
 			} else {
@@ -295,7 +293,7 @@ const fetchMoreAhead = async (): Promise<void> => {
 	const params = props.pagination.params ? isRef(props.pagination.params) ? props.pagination.params.value : props.pagination.params : {};
 	await os.api(props.pagination.endpoint, {
 		...params,
-		limit: SECOND_FETCH_LIMIT + 1,
+		limit: SECOND_FETCH_LIMIT,
 		...(props.pagination.offsetMode ? {
 			offset: offset.value,
 		} : {
