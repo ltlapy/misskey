@@ -67,3 +67,5 @@ temp
 
 .pnpm-store/
 
+# VSCode addon
+.favorites.json
