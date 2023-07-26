@@ -1,12 +1,12 @@
 {
 	"name": "misskey",
-	"version": "13.14.0-beta.4-92d9946+klapy.1",
+	"version": "13.14.1+klapy",
 	"codename": "nasubi",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/misskey-dev/misskey.git"
 	},
-	"packageManager": "pnpm@8.6.0",
+	"packageManager": "pnpm@8.6.9",
 	"workspaces": [
 		"packages/frontend",
 		"packages/backend",
