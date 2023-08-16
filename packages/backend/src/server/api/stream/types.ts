@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import type { Channel } from '@/models/entities/Channel.js';
 import type { User } from '@/models/entities/User.js';
 import type { UserProfile } from '@/models/entities/UserProfile.js';
@@ -61,6 +66,9 @@ export interface BroadcastTypes {
 			[other: string]: any;
 		}[];
 	};
+	announcementCreated: {
+		announcement: Packed<'Announcement'>;
+	};
 }
 
 export interface MainStreamTypes {
@@ -105,6 +113,9 @@ export interface MainStreamTypes {
 	driveFileCreated: Packed<'DriveFile'>;
 	readAntenna: Antenna;
 	receiveFollowRequest: Packed<'User'>;
+	announcementCreated: {
+		announcement: Packed<'Announcement'>;
+	};
 }
 
 export interface DriveStreamTypes {
