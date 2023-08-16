@@ -1,12 +1,14 @@
+/*
+ * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import { URLSearchParams } from 'node:url';
-import { translate } from '@vitalets/google-translate-api';
+import { Injectable } from '@nestjs/common';
 import fs from 'node:fs';
-import { Inject, Injectable } from '@nestjs/common';
+import { translate } from '@vitalets/google-translate-api';
 import { TranslationServiceClient } from '@google-cloud/translate';
-import type { NotesRepository } from '@/models/index.js';
 import { Endpoint } from '@/server/api/endpoint-base.js';
-import type { Config } from '@/config.js';
-import { DI } from '@/di-symbols.js';
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { MetaService } from '@/core/MetaService.js';
 import { HttpRequestService } from '@/core/HttpRequestService.js';
@@ -51,12 +53,6 @@ export const paramDef = {
 @Injectable()
 export default class extends Endpoint<typeof meta, typeof paramDef> {
 	constructor(
-		@Inject(DI.config)
-		private config: Config,
-
-		@Inject(DI.notesRepository)
-		private notesRepository: NotesRepository,
-
 		private noteEntityService: NoteEntityService,
 		private getterService: GetterService,
 		private metaService: MetaService,
@@ -80,12 +76,12 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 			if (note.text == null) {
 				return 204;
 			}
-			
+
 			const instance = await this.metaService.fetch();
 			if (instance.translatorType == null || !translatorServices.includes(instance.translatorType)) {
 				throw new ApiError(meta.errors.noTranslateService);
 			}
-			
+
 			let targetLang = ps.targetLang;
 			if (targetLang.includes('-')) targetLang = targetLang.split('-')[0];
 
@@ -95,19 +91,19 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					return 204; // TODO: 良い感じのエラー返す
 				}
 				translationResult = await this.translateDeepL(note.text, targetLang, instance.deeplAuthKey, instance.deeplIsPro, instance.translatorType);
-			
+
 			} else if (instance.translatorType === 'GoogleNoAPI') {
 				translationResult = await this.translateGoogleNoAPI(
 					note.text, targetLang, instance.translatorType
 				);
-			
+
 			} else if (instance.translatorType === 'ctav3') {
 				if (instance.ctav3SaKey == null) { return 204; } else if (instance.ctav3ProjectId == null) { return 204; }
 				else if (instance.ctav3Location == null) { return 204; }
 				translationResult = await this.apiCloudTranslationAdvanced(
 					note.text, targetLang, instance.ctav3SaKey, instance.ctav3ProjectId, instance.ctav3Location, instance.ctav3Model, instance.ctav3Glossary, instance.translatorType,
 				);
-			
+
 			} else {
 				throw new Error('Unsupported translator type');
 			}
@@ -122,7 +118,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 	private async translateGoogleNoAPI(text: string, targetLang: string, provider: string) {
 		const { text: translatedText, raw } = await translate(text, { to: targetLang });
-		
+
 		return {
 			sourceLang: raw.src,
 			text: translatedText,
