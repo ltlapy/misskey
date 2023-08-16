@@ -4,6 +4,7 @@
  */
 
 import { Inject, Injectable } from '@nestjs/common';
+import { In, Not } from 'typeorm';
 import * as Redis from 'ioredis';
 import _Ajv from 'ajv';
 import { ModuleRef } from '@nestjs/core';
@@ -241,19 +242,6 @@ export class UserEntityService implements OnModuleInit {
 		]);
 
 		return withUser || withGroups.some(x => x);
-	}
-
-	@bindThis
-	public async getHasUnreadAnnouncement(userId: User['id']): Promise<boolean> {
-		const reads = await this.announcementReadsRepository.findBy({
-			userId: userId,
-		});
-
-		const count = await this.announcementsRepository.countBy(reads.length > 0 ? {
-			id: Not(In(reads.map(read => read.announcementId))),
-		} : {});
-
-		return count > 0;
 	}
 
 	@bindThis
