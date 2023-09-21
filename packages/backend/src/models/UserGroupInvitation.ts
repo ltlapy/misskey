@@ -3,7 +3,7 @@ import { id } from './util/id.js';
 import { MiUser } from './User.js';
 import { MiUserGroup } from './UserGroup.js';
 
-@Entity()
+@Entity('user_group_invitation')
 @Index(['userId', 'userGroupId'], { unique: true })
 export class MiUserGroupInvitation {
 	@PrimaryColumn(id())

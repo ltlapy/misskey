@@ -4,7 +4,7 @@ import { MiUser } from './User.js';
 import { MiDriveFile } from './DriveFile.js';
 import { MiUserGroup } from './UserGroup.js';
 
-@Entity()
+@Entity('messaging_message')
 export class MiMessagingMessage {
 	@PrimaryColumn(id())
 	public id: string;

@@ -2,7 +2,7 @@ import { Entity, Index, JoinColumn, Column, PrimaryColumn, ManyToOne } from 'typ
 import { id } from './util/id.js';
 import { MiUser } from './User.js';
 
-@Entity()
+@Entity('user_group')
 export class MiUserGroup {
 	@PrimaryColumn(id())
 	public id: string;
