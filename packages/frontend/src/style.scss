@@ -443,20 +443,6 @@ hr {
 	font-family: "JetBrains Mono", "Pretendard JP", Fira code, Fira Mono, Consolas, Menlo, Courier, monospace !important;
 }
 
-._code {
-	@extend ._monospace;
-	background: #2d2d2d;
-	color: #ccc;
-	font-size: 14px;
-	line-height: 1.5;
-	padding: 5px;
-}
-
-code[class*="language-"],
-pre[class*="language-"] {
-	font-family: "JetBrains Mono", "Pretendard JP" , Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
-}
-
 .prism-editor__textarea:focus {
 	outline: none;
 }
@@ -573,6 +559,13 @@ pre[class*="language-"] {
 			font-size: 100%;
 		}
 	}
+}
+
+._mfm_rainbow_fallback_ {
+	background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 165, 0) 17%, rgb(255, 255, 0) 33%, rgb(0, 255, 0) 50%, rgb(0, 255, 255) 67%, rgb(0, 0, 255) 83%, rgb(255, 0, 255) 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
 }
 
 @keyframes mfm-spin {

@@ -5,7 +5,7 @@
 
 import { Inject, Injectable } from '@nestjs/common';
 import { Endpoint } from '@/server/api/endpoint-base.js';
-import type { AntennasRepository, UserListsRepository, UserGroupJoiningsRepository } from '@/models/index.js';
+import type { AntennasRepository, UserListsRepository, UserGroupJoiningsRepository } from '@/models/_.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
 import { AntennaEntityService } from '@/core/entities/AntennaEntityService.js';
 import { DI } from '@/di-symbols.js';
@@ -76,9 +76,8 @@ export const paramDef = {
 	required: ['antennaId', 'name', 'src', 'keywords', 'excludeKeywords', 'users', 'caseSensitive', 'withReplies', 'withFile', 'notify'],
 } as const;
 
-// eslint-disable-next-line import/no-default-export
 @Injectable()
-export default class extends Endpoint<typeof meta, typeof paramDef> {
+export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-disable-line import/no-default-export
 	constructor(
 		@Inject(DI.antennasRepository)
 		private antennasRepository: AntennasRepository,
@@ -86,10 +85,16 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 		@Inject(DI.userListsRepository)
 		private userListsRepository: UserListsRepository,
 
+		@Inject(DI.userGroupJoiningsRepository)
+		private userGroupJoiningsRepository: UserGroupJoiningsRepository,
+
 		private antennaEntityService: AntennaEntityService,
 		private globalEventService: GlobalEventService,
 	) {
 		super(meta, paramDef, async (ps, me) => {
+			if (ps.keywords.flat().every(x => x === '') && ps.excludeKeywords.flat().every(x => x === '')) {
+				throw new Error('either keywords or excludeKeywords is required.');
+			}
 			// Fetch the antenna
 			const antenna = await this.antennasRepository.findOneBy({
 				id: ps.antennaId,
