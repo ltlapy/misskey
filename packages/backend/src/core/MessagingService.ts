@@ -18,6 +18,9 @@ import { ApRendererService } from '@/core/activitypub/ApRendererService.js';
 import { MessagingMessageEntityService } from '@/core/entities/MessagingMessageEntityService.js';
 import { PushNotificationService } from '@/core/PushNotificationService.js';
 import { bindThis } from '@/decorators.js';
+import type { UserProfilesRepository } from "@/models/_.js";
+import {IMentionedRemoteUsers} from '@/models/Note.js';
+import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 
 @Injectable()
 export class MessagingService {
@@ -28,6 +31,9 @@ export class MessagingService {
 		@Inject(DI.usersRepository)
 		private usersRepository: UsersRepository,
 
+		@Inject(DI.userProfilesRepository)
+		private userProfilesRepository: UserProfilesRepository,
+
 		@Inject(DI.messagingMessagesRepository)
 		private messagingMessagesRepository: MessagingMessagesRepository,
 
@@ -37,6 +43,7 @@ export class MessagingService {
 		@Inject(DI.mutingsRepository)
 		private mutingsRepository: MutingsRepository,
 
+		private noteEntityService: NoteEntityService,
 		private userEntityService: UserEntityService,
 		private messagingMessageEntityService: MessagingMessageEntityService,
 		private idService: IdService,
@@ -48,10 +55,11 @@ export class MessagingService {
 	}
 
 	@bindThis
-	public async createMessage(user: { id: User['id']; host: User['host']; }, recipientUser: User | undefined, recipientGroup: UserGroup | undefined, text: string | null | undefined, file: DriveFile | null, uri?: string) {
+	public async createMessage(user: { id: User['id']; host: User['host']; }, recipientUser: User | null, recipientGroup: UserGroup | null, text: string | null | undefined, file: DriveFile | null, uri?: string) {
+		const data = new Date();
 		const message = {
-			id: this.idService.genId(),
-			createdAt: new Date(),
+			id: this.idService.genId(data),
+			createdAt: data,
 			fileId: file ? file.id : null,
 			recipientId: recipientUser ? recipientUser.id : null,
 			groupId: recipientGroup ? recipientGroup.id : null,
@@ -61,11 +69,11 @@ export class MessagingService {
 			reads: [] as any[],
 			uri,
 		} as MessagingMessage;
-	
+
 		await this.messagingMessagesRepository.insert(message);
-	
+
 		const messageObj = await this.messagingMessageEntityService.pack(message);
-	
+
 		if (recipientUser) {
 			if (this.userEntityService.isLocalUser(user)) {
 				// 自分のストリーム
@@ -73,7 +81,7 @@ export class MessagingService {
 				this.globalEventService.publishMessagingIndexStream(message.userId, 'message', messageObj);
 				this.globalEventService.publishMainStream(message.userId, 'messagingMessage', messageObj);
 			}
-	
+
 			if (this.userEntityService.isLocalUser(recipientUser)) {
 				// 相手のストリーム
 				this.globalEventService.publishMessagingStream(recipientUser.id, message.userId, 'message', messageObj);
@@ -83,7 +91,7 @@ export class MessagingService {
 		} else if (recipientGroup) {
 			// グループのストリーム
 			this.globalEventService.publishGroupMessagingStream(recipientGroup.id, 'message', messageObj);
-	
+
 			// メンバーのストリーム
 			const joinings = await this.userGroupJoiningsRepository.findBy({ userGroupId: recipientGroup.id });
 			for (const joining of joinings) {
@@ -91,22 +99,22 @@ export class MessagingService {
 				this.globalEventService.publishMainStream(joining.userId, 'messagingMessage', messageObj);
 			}
 		}
-	
+
 		// 2秒経っても(今回作成した)メッセージが既読にならなかったら「未読のメッセージがありますよ」イベントを発行する
 		setTimeout(async () => {
 			const freshMessage = await this.messagingMessagesRepository.findOneBy({ id: message.id });
 			if (freshMessage == null) return; // メッセージが削除されている場合もある
-	
+
 			if (recipientUser && this.userEntityService.isLocalUser(recipientUser)) {
 				if (freshMessage.isRead) return; // 既読
-	
+
 				//#region ただしミュートされているなら発行しない
 				const mute = await this.mutingsRepository.findBy({
 					muterId: recipientUser.id,
 				});
 				if (mute.map(m => m.muteeId).includes(user.id)) return;
 				//#endregion
-	
+
 				this.globalEventService.publishMainStream(recipientUser.id, 'unreadMessagingMessage', messageObj);
 				this.pushNotificationService.pushNotification(recipientUser.id, 'unreadMessagingMessage', messageObj);
 			} else if (recipientGroup) {
@@ -118,8 +126,12 @@ export class MessagingService {
 				}
 			}
 		}, 2000);
-	
+
 		if (recipientUser && this.userEntityService.isLocalUser(user) && this.userEntityService.isRemoteUser(recipientUser)) {
+			const profiles = await this.userProfilesRepository.findBy({ userId: In([recipientUser.id]) });
+			const profile = profiles.find(p => p.userId === recipientUser.id);
+			const url = profile != null ? profile.url : null;
+
 			const note = {
 				id: message.id,
 				createdAt: message.createdAt,
@@ -127,16 +139,19 @@ export class MessagingService {
 				text: message.text,
 				userId: message.userId,
 				visibility: 'specified',
+				emojis: [{}],
 				mentions: [recipientUser].map(u => u.id),
 				mentionedRemoteUsers: JSON.stringify([recipientUser].map(u => ({
 					uri: u.uri,
+					url: url,
 					username: u.username,
 					host: u.host,
-				}))),
+				} as IMentionedRemoteUsers[0]
+				))),
 			} as Note;
-	
+
 			const activity = this.apRendererService.addContext(this.apRendererService.renderCreate(await this.apRendererService.renderNote(note, false, true), note));
-	
+
 			this.queueService.deliver(user, activity, recipientUser.inbox, false);
 		}
 		return messageObj;
@@ -147,16 +162,16 @@ export class MessagingService {
 		await this.messagingMessagesRepository.delete(message.id);
 		this.postDeleteMessage(message);
 	}
-	
+
 	@bindThis
 	private async postDeleteMessage(message: MessagingMessage) {
 		if (message.recipientId) {
 			const user = await this.usersRepository.findOneByOrFail({ id: message.userId });
 			const recipient = await this.usersRepository.findOneByOrFail({ id: message.recipientId });
-	
+
 			if (this.userEntityService.isLocalUser(user)) this.globalEventService.publishMessagingStream(message.userId, message.recipientId, 'deleted', message.id);
 			if (this.userEntityService.isLocalUser(recipient)) this.globalEventService.publishMessagingStream(message.recipientId, message.userId, 'deleted', message.id);
-	
+
 			if (this.userEntityService.isLocalUser(user) && this.userEntityService.isRemoteUser(recipient)) {
 				const activity = this.apRendererService.addContext(this.apRendererService.renderDelete(this.apRendererService.renderTombstone(`${this.config.url}/notes/${message.id}`), user));
 				this.queueService.deliver(user, activity, recipient.inbox, false);
