@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<option v-for="list in userLists" :key="list.id" :value="list.id">{{ list.name }}</option>
 			</MkSelect>
 			<MkSelect v-else-if="src === 'group'" v-model="userGroupId">
-				<template #label>{{ i18n.ts.userGroup }}</template>
+				<template #label>{{ i18n.ts.groups }}</template>
 				<option v-for="group in userGroups" :key="group.id" :value="group.id">{{ group.name }}</option>
 			</MkSelect>
 			<MkTextarea v-else-if="src === 'users' || src === 'users_blacklist'" v-model="users">
