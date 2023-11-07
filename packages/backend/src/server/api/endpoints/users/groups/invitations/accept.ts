@@ -60,7 +60,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 			// Push the user
 			await this.userGroupJoiningsRepository.insert({
-				id: this.idService.genId(),
+				id: this.idService.gen(),
 				createdAt: new Date(),
 				userId: me.id,
 				userGroupId: invitation.userGroupId,

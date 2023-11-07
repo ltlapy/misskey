@@ -106,7 +106,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 			}
 
 			const invitation = await this.userGroupInvitationsRepository.insert({
-				id: this.idService.genId(),
+				id: this.idService.gen(),
 				createdAt: new Date(),
 				userId: user.id,
 				userGroupId: userGroup.id,

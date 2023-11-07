@@ -50,7 +50,7 @@ export class MessagingService {
 	@bindThis
 	public async createMessage(user: { id: MiUser['id']; host: MiUser['host']; }, recipientUser: MiUser | undefined, recipientGroup: MiUserGroup | undefined, text: string | null | undefined, file: MiDriveFile | null, uri?: string) {
 		const message = {
-			id: this.idService.genId(),
+			id: this.idService.gen(),
 			createdAt: new Date(),
 			fileId: file ? file.id : null,
 			recipientId: recipientUser ? recipientUser.id : null,
