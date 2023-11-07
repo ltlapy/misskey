@@ -124,6 +124,15 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: Router 
 		});
 	}
 
+	async function toggleWithReplies() {
+		os.apiWithDialog('following/update', {
+			userId: user.id,
+			withReplies: !user.withReplies,
+		}).then(() => {
+			user.withReplies = !user.withReplies;
+		});
+	}
+
 	async function toggleNotify() {
 		os.apiWithDialog('following/update', {
 			userId: user.id,
@@ -149,6 +158,12 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: Router 
 		return !confirm.canceled;
 	}
 
+	async function userInfoUpdate() {
+		os.apiWithDialog('federation/update-remote-user', {
+			userId: user.id,
+		});
+	}
+	
 	async function invalidateFollow() {
 		if (!await getConfirmed(i18n.ts.breakFollowConfirm)) return;
 
@@ -335,6 +350,10 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: Router 
 		// フォローしたとしても user.isFollowing はリアルタイム更新されないので不便なため
 		//if (user.isFollowing) {
 		menu = menu.concat([{
+			icon: user.withReplies ? 'ti ti-messages-off' : 'ti ti-messages',
+			text: user.withReplies ? i18n.ts.hideRepliesToOthersInTimeline : i18n.ts.showRepliesToOthersInTimeline,
+			action: toggleWithReplies,
+		}, {
 			icon: user.notify === 'none' ? 'ti ti-bell' : 'ti ti-bell-off',
 			text: user.notify === 'none' ? i18n.ts.notifyNotes : i18n.ts.unnotifyNotes,
 			action: toggleNotify,
@@ -370,6 +389,14 @@ export function getUserMenu(user: Misskey.entities.UserDetailed, router: Router 
 		}]);
 	}
 
+	if (user.host !== null) {
+		menu = menu.concat([null, {
+			icon: 'ti ti-refresh',
+			text: i18n.ts.updateRemoteUser,
+			action: userInfoUpdate,
+		}]);
+	}
+	
 	if (defaultStore.state.devMode) {
 		menu = menu.concat([null, {
 			icon: 'ti ti-id',

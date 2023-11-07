@@ -75,7 +75,7 @@ let sendReadMessage = $computed(() => pushRegistrationInServer?.sendReadMessage 
 const userLists = await os.api('users/lists/list');
 
 async function readAllUnreadNotes() {
-	await os.api('i/read-all-unread-notes');
+	await os.apiWithDialog('i/read-all-unread-notes');
 }
 
 async function readAllMessagingMessages() {
@@ -83,7 +83,7 @@ async function readAllMessagingMessages() {
 }
 
 async function readAllNotifications() {
-	await os.api('notifications/mark-all-as-read');
+	await os.apiWithDialog('notifications/mark-all-as-read');
 }
 
 async function updateReceiveConfig(type, value) {
