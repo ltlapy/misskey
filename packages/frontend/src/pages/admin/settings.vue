@@ -125,6 +125,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 									<template #label>Glossary ID</template>
 								</MkInput>
 							</template>
+						</div>
+					</FormSection>
+
+					<FormSection>
 						<template #label>Misskey® Fan-out Timeline Technology™ (FTT)</template>
 
 						<div class="_gaps_m">
