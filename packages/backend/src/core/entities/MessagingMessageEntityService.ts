@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import type { MessagingMessagesRepository } from '@/models/index.js';
+import type { MessagingMessagesRepository } from '@/models/_.js';
 import { awaitAll } from '@/misc/prelude/await-all.js';
 import type { Packed } from '@/misc/json-schema.js';
-import type { } from '@/models/entities/Blocking.js';
-import type { User } from '@/models/entities/User.js';
-import type { MessagingMessage } from '@/models/entities/MessagingMessage.js';
+import type { } from '@/models/Blocking.js';
+import type { MiUser } from '@/models/User.js';
+import type { MiMessagingMessage } from '@/models/MessagingMessage.js';
 import { UserEntityService } from './UserEntityService.js';
 import { DriveFileEntityService } from './DriveFileEntityService.js';
 import { UserGroupEntityService } from './UserGroupEntityService.js';
@@ -25,8 +25,8 @@ export class MessagingMessageEntityService {
 
 	@bindThis
 	public async pack(
-		src: MessagingMessage['id'] | MessagingMessage,
-		me?: { id: User['id'] } | null | undefined,
+		src: MiMessagingMessage['id'] | MiMessagingMessage,
+		me?: { id: MiUser['id'] } | null | undefined,
 		options?: {
 			populateRecipient?: boolean,
 			populateGroup?: boolean,

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { UserGroupsRepository, UserGroupJoiningsRepository, UserGroupInvitationsRepository } from '@/models/index.js';
+import type { UserGroupsRepository, UserGroupJoiningsRepository, UserGroupInvitationsRepository } from '@/models/_.js';
 import { IdService } from '@/core/IdService.js';
-import type { UserGroupInvitation } from '@/models/entities/UserGroupInvitation.js';
+import type { MiUserGroupInvitation } from '@/models/UserGroupInvitation.js';
 import { Endpoint } from '@/server/api/endpoint-base.js';
 import { GetterService } from '@/server/api/GetterService.js';
 import { NotificationService } from '@/core/NotificationService.js';
@@ -110,7 +110,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				createdAt: new Date(),
 				userId: user.id,
 				userGroupId: userGroup.id,
-			} as UserGroupInvitation).then(x => this.userGroupInvitationsRepository.findOneByOrFail(x.identifiers[0]));
+			} as MiUserGroupInvitation).then(x => this.userGroupInvitationsRepository.findOneByOrFail(x.identifiers[0]));
 
 			// 通知を作成
 			this.notificationService.createNotification(user.id, 'groupInvited', {
