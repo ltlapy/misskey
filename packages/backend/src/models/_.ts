@@ -10,6 +10,7 @@ import { MiAnnouncement } from '@/models/Announcement.js';
 import { MiAnnouncementRead } from '@/models/AnnouncementRead.js';
 import { MiAntenna } from '@/models/Antenna.js';
 import { MiApp } from '@/models/App.js';
+import { MiAvatarDecoration } from '@/models/AvatarDecoration.js';
 import { MiAuthSession } from '@/models/AuthSession.js';
 import { MiBlocking } from '@/models/Blocking.js';
 import { MiChannelFollowing } from '@/models/ChannelFollowing.js';
@@ -29,7 +30,6 @@ import { MiInstance } from '@/models/Instance.js';
 import { MiMessagingMessage } from '@/models/MessagingMessage.js';
 import { MiMeta } from '@/models/Meta.js';
 import { MiModerationLog } from '@/models/ModerationLog.js';
-import { MiMutedNote } from '@/models/MutedNote.js';
 import { MiMuting } from '@/models/Muting.js';
 import { MiRenoteMuting } from '@/models/RenoteMuting.js';
 import { MiNote } from '@/models/Note.js';
@@ -57,7 +57,7 @@ import { MiUserGroupJoining } from '@/models/UserGroupJoining.js';
 import { MiUserIp } from '@/models/UserIp.js';
 import { MiUserKeypair } from '@/models/UserKeypair.js';
 import { MiUserList } from '@/models/UserList.js';
-import { MiUserListJoining } from '@/models/UserListJoining.js';
+import { MiUserListMembership } from '@/models/UserListMembership.js';
 import { MiUserNotePining } from '@/models/UserNotePining.js';
 import { MiUserPending } from '@/models/UserPending.js';
 import { MiUserProfile } from '@/models/UserProfile.js';
@@ -82,6 +82,7 @@ export {
 	MiAnnouncementRead,
 	MiAntenna,
 	MiApp,
+	MiAvatarDecoration,
 	MiAuthSession,
 	MiBlocking,
 	MiChannelFollowing,
@@ -101,7 +102,6 @@ export {
 	MiMessagingMessage,
 	MiMeta,
 	MiModerationLog,
-	MiMutedNote,
 	MiMuting,
 	MiRenoteMuting,
 	MiNote,
@@ -130,7 +130,7 @@ export {
 	MiUserKeypair,
 	MiUserList,
 	MiUserListFavorite,
-	MiUserListJoining,
+	MiUserListMembership,
 	MiUserNotePining,
 	MiUserPending,
 	MiUserProfile,
@@ -153,6 +153,7 @@ export type AnnouncementsRepository = Repository<MiAnnouncement>;
 export type AnnouncementReadsRepository = Repository<MiAnnouncementRead>;
 export type AntennasRepository = Repository<MiAntenna>;
 export type AppsRepository = Repository<MiApp>;
+export type AvatarDecorationsRepository = Repository<MiAvatarDecoration>;
 export type AuthSessionsRepository = Repository<MiAuthSession>;
 export type BlockingsRepository = Repository<MiBlocking>;
 export type ChannelFollowingsRepository = Repository<MiChannelFollowing>;
@@ -172,7 +173,6 @@ export type InstancesRepository = Repository<MiInstance>;
 export type MessagingMessagesRepository = Repository<MiMessagingMessage>;
 export type MetasRepository = Repository<MiMeta>;
 export type ModerationLogsRepository = Repository<MiModerationLog>;
-export type MutedNotesRepository = Repository<MiMutedNote>;
 export type MutingsRepository = Repository<MiMuting>;
 export type RenoteMutingsRepository = Repository<MiRenoteMuting>;
 export type NotesRepository = Repository<MiNote>;
@@ -201,7 +201,7 @@ export type UserIpsRepository = Repository<MiUserIp>;
 export type UserKeypairsRepository = Repository<MiUserKeypair>;
 export type UserListsRepository = Repository<MiUserList>;
 export type UserListFavoritesRepository = Repository<MiUserListFavorite>;
-export type UserListJoiningsRepository = Repository<MiUserListJoining>;
+export type UserListMembershipsRepository = Repository<MiUserListMembership>;
 export type UserNotePiningsRepository = Repository<MiUserNotePining>;
 export type UserPendingsRepository = Repository<MiUserPending>;
 export type UserProfilesRepository = Repository<MiUserProfile>;
