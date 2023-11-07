@@ -11,7 +11,7 @@ import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { bindThis } from '@/decorators.js';
 import Channel from '../channel.js';
-import type { StreamMessages } from '../types.js';
+// import type { StreamMessages } from '../types.js'; // todolapy
 
 class ChannelChannel extends Channel {
 	public readonly chName = 'channel';
@@ -67,7 +67,7 @@ class ChannelChannel extends Channel {
 	}
 
 	@bindThis
-	private onEvent(data: StreamMessages['channel']['payload']) {
+	private onEvent(data: any) { // todolapy
 		if (data.type === 'typing') {
 			const id = data.body;
 			const begin = this.typers[id] == null;

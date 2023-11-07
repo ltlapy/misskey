@@ -7,7 +7,7 @@ import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { DI } from '@/di-symbols.js';
 import { bindThis } from '@/decorators.js';
 import Channel from '../channel.js';
-import type { StreamMessages } from '../types.js';
+// import type { StreamMessages } from '../types.js';
 
 class MessagingChannel extends Channel {
 	public readonly chName = 'messaging';
@@ -66,7 +66,7 @@ class MessagingChannel extends Channel {
 	}
 
 	@bindThis
-	private onEvent(data: StreamMessages['messaging']['payload'] | StreamMessages['groupMessaging']['payload']) {
+	private onEvent(data: any) { // todolapy
 		if (data.type === 'typing') {
 			const id = data.body;
 			const begin = this.typers[id] == null;
