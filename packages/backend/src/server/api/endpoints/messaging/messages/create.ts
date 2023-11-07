@@ -114,8 +114,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 		private messagingService: MessagingService,
 	) {
 		super(meta, paramDef, async (ps, me) => {
-			let recipientUser: User | null;
-			let recipientGroup: UserGroup | null;
+			let recipientUser: User | null = null;
+			let recipientGroup: UserGroup | null = null;
 
 			if (ps.userId != null) {
 				// Myself
