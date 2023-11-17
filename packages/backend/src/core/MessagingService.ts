@@ -4,13 +4,13 @@ import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
 import type { MiDriveFile } from '@/models/DriveFile.js';
 import type { MiMessagingMessage } from '@/models/MessagingMessage.js';
-import type { MiNote } from '@/models/Note.js';
+import type { MiNote, IMentionedRemoteUsers } from '@/models/Note.js';
 import type { MiUser, MiRemoteUser } from '@/models/User.js';
 import type { MiUserGroup } from '@/models/UserGroup.js';
 import { QueueService } from '@/core/QueueService.js';
 import { toArray } from '@/misc/prelude/array.js';
 import { IdentifiableError } from '@/misc/identifiable-error.js';
-import type { MessagingMessagesRepository, MutingsRepository, UserGroupJoiningsRepository, UsersRepository } from '@/models/_.js';
+import type { MessagingMessagesRepository, MutingsRepository, UserGroupJoiningsRepository, UsersRepository, UserProfilesRepository } from '@/models/_.js';
 import { IdService } from '@/core/IdService.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
@@ -28,6 +28,9 @@ export class MessagingService {
 		@Inject(DI.usersRepository)
 		private usersRepository: UsersRepository,
 
+		@Inject(DI.userProfilesRepository)
+		private userProfilesRepository: UserProfilesRepository,
+
 		@Inject(DI.messagingMessagesRepository)
 		private messagingMessagesRepository: MessagingMessagesRepository,
 
@@ -36,7 +39,6 @@ export class MessagingService {
 
 		@Inject(DI.mutingsRepository)
 		private mutingsRepository: MutingsRepository,
-
 		private userEntityService: UserEntityService,
 		private messagingMessageEntityService: MessagingMessageEntityService,
 		private idService: IdService,
@@ -48,10 +50,11 @@ export class MessagingService {
 	}
 
 	@bindThis
-	public async createMessage(user: { id: MiUser['id']; host: MiUser['host']; }, recipientUser: MiUser | undefined, recipientGroup: MiUserGroup | undefined, text: string | null | undefined, file: MiDriveFile | null, uri?: string) {
+	public async createMessage(user: { id: MiUser['id']; host: MiUser['host']; }, recipientUser: MiUser | null, recipientGroup: MiUserGroup | null, text: string | null | undefined, file: MiDriveFile | null, uri?: string) {
+		const data = new Date();
 		const message = {
-			id: this.idService.gen(),
-			createdAt: new Date(),
+			id: this.idService.genId(data),
+			createdAt: data,
 			fileId: file ? file.id : null,
 			recipientId: recipientUser ? recipientUser.id : null,
 			groupId: recipientGroup ? recipientGroup.id : null,
@@ -120,6 +123,10 @@ export class MessagingService {
 		}, 2000);
 
 		if (recipientUser && this.userEntityService.isLocalUser(user) && this.userEntityService.isRemoteUser(recipientUser)) {
+			const profiles = await this.userProfilesRepository.findBy({ userId: In([recipientUser.id]) });
+			const profile = profiles.find(p => p.userId === recipientUser.id);
+			const url = profile != null ? profile.url : null;
+
 			const note = {
 				id: message.id,
 				createdAt: message.createdAt,
@@ -127,12 +134,16 @@ export class MessagingService {
 				text: message.text,
 				userId: message.userId,
 				visibility: 'specified',
+				emojis: [{}],
+				tags: [{}],
 				mentions: [recipientUser].map(u => u.id),
 				mentionedRemoteUsers: JSON.stringify([recipientUser].map(u => ({
 					uri: u.uri,
+					url: url,
 					username: u.username,
 					host: u.host,
-				}))),
+				} as IMentionedRemoteUsers[0]
+				))),
 			} as MiNote;
 
 			const activity = this.apRendererService.addContext(this.apRendererService.renderCreate(await this.apRendererService.renderNote(note, false, true), note));
