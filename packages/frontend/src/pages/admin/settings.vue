@@ -137,6 +137,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 								<template #caption>{{ i18n.ts._serverSettings.fanoutTimelineDescription }}</template>
 							</MkSwitch>
 
+							<MkSwitch v-model="enableFanoutTimelineDbFallback">
+								<template #label>{{ i18n.ts._serverSettings.fanoutTimelineDbFallback }}</template>
+								<template #caption>{{ i18n.ts._serverSettings.fanoutTimelineDbFallbackDescription }}</template>
+							</MkSwitch>
+
 							<MkInput v-model="perLocalUserUserTimelineCacheMax" type="number">
 								<template #label>perLocalUserUserTimelineCacheMax</template>
 							</MkInput>
@@ -222,6 +227,7 @@ let ctav3Location: string = $ref('');
 let ctav3Model: string = $ref('');
 let ctav3Glossary: string = $ref('');
 let enableFanoutTimeline: boolean = $ref(false);
+let enableFanoutTimelineDbFallback: boolean = $ref(false);
 let perLocalUserUserTimelineCacheMax: number = $ref(0);
 let perRemoteUserUserTimelineCacheMax: number = $ref(0);
 let perUserHomeTimelineCacheMax: number = $ref(0);
@@ -253,6 +259,7 @@ async function init(): Promise<void> {
 
 	provider = meta.translatorType;
 	enableFanoutTimeline = meta.enableFanoutTimeline;
+	enableFanoutTimelineDbFallback = meta.enableFanoutTimelineDbFallback;
 	perLocalUserUserTimelineCacheMax = meta.perLocalUserUserTimelineCacheMax;
 	perRemoteUserUserTimelineCacheMax = meta.perRemoteUserUserTimelineCacheMax;
 	perUserHomeTimelineCacheMax = meta.perUserHomeTimelineCacheMax;
@@ -283,6 +290,7 @@ async function save(): void {
 		ctav3Model,
 		ctav3Glossary,
 		enableFanoutTimeline,
+		enableFanoutTimelineDbFallback,
 		perLocalUserUserTimelineCacheMax,
 		perRemoteUserUserTimelineCacheMax,
 		perUserHomeTimelineCacheMax,
