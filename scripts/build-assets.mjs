@@ -17,6 +17,7 @@ async function copyFrontendFonts() {
   await fs.cp('./packages/frontend/node_modules/three/examples/fonts', './built/_frontend_dist_/fonts', { dereference: true, recursive: true });
 }
 
+// now serving via CDN. See /packages/backend/src/server/web/views/base.pug
 async function copyFrontendTablerIcons() {
   await fs.cp('./packages/frontend/node_modules/@tabler/icons-webfont', './built/_frontend_dist_/tabler-icons', { dereference: true, recursive: true });
 }
