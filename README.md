@@ -1,3 +1,10 @@
+# ⚠️ This branch is no longer maintained.
+순정 Misskey 기반의 klapy 포크는 2023년을 끝으로 유지보수되지 않습니다. Misskey.lapy는 2024년 2월을 전후하여 순정 CherryPick으로 이전하였습니다.
+
+オリジナルMisskeyベースのklapyフォークは、2024年をもってメンテナンスを終了しました。Misskey.lapyは2024年2月を前後にCherryPickへの移転を予定しています。
+
+---
+
 <div align="center">
 <a href="https://misskey-hub.net">
 	<img src="./assets/title_float.svg" alt="Misskey logo" style="border-radius:50%" width="400"/>
